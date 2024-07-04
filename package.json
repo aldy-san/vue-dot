@@ -7,6 +7,9 @@
     "build": "set NODE_OPTIONS=--openssl-legacy-provider && vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
+  "engines": {
+    "node": "18.x"
+  },
   "dependencies": {
     "core-js": "^3.6.5",
     "vue": "^3.0.0",

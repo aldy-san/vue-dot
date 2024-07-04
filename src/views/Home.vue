@@ -1,29 +1,16 @@
 <template>
   <div class="home">
     <h1>Pokemon List</h1>
-    <div class="poke-container">
-      <div v-for="(pokemon, i) in advData" :key="i" class="poke-card">
-        <img :src="pokemon.sprites.front_default" alt="sprites" />
-        <h2>{{ pokemon.name }}</h2>
-        <div class="poke-types">
-          <div v-for="(type, j) in pokemon.types" :key="j">
-            <a :href="type.type.url" target="_blank">
-              {{ type.type.name }}
-            </a>
-          </div>
-        </div>
-      </div>
+    <div v-if="advData.length" class="poke-container">
+      <PokeCard v-for="(pokemon, i) in advData" :key="i" :pokemon="pokemon" />
     </div>
-    <!--<img alt="Vue logo" src="../assets/logo.png" />-->
-
-    <!--<HelloWorld msg="Welcome to Your Vue.js App"/>-->
   </div>
 </template>
 
 <script setup>
 // @ is an alias to /src
 import { ref } from "vue";
-
+import PokeCard from "@/components/PokeCard.vue";
 const data = ref([]);
 const advData = ref([]);
 const error = ref(null);
@@ -53,19 +40,5 @@ fetch("https://pokeapi.co/api/v2/pokemon")
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 20px;
-}
-.poke-card {
-  border: 1px solid green;
-  padding: 20px;
-  border-radius: 12px;
-}
-.poke-card h2 {
-  text-transform: capitalize;
-}
-.poke-types {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 6px;
 }
 </style>
