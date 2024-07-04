@@ -6,6 +6,7 @@
       <input
         v-model="form.username"
         id="username"
+        placeholder="username"
         type="text"
         class="form-input"
       />
@@ -15,12 +16,13 @@
       <input
         v-model="form.password"
         id="password"
+        placeholder="password"
         type="password"
         class="form-input"
       />
     </div>
     <button class="btn" @click="login">Login</button>
-    <span>{{ errorMessage }}</span>
+    <small>{{ errorMessage }}</small>
   </div>
 </template>
 
@@ -72,7 +74,6 @@ export default {
 .form-group {
   display: flex;
   flex-direction: column;
-  /*align-items: flex-start;*/
   gap: 6px;
   width: 100%;
 }
@@ -88,11 +89,12 @@ export default {
   width: 100%;
   background: #000;
   color: white;
+  cursor: pointer;
 }
 .btn:hover {
   background: #414141;
 }
-span {
+small {
   color: red;
 }
 </style>
