@@ -90,7 +90,7 @@ export default {
   color: white;
 }
 .btn:hover {
-  opacity: 80%;
+  background: #414141;
 }
 span {
   color: red;
