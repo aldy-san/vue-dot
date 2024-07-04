@@ -51,9 +51,21 @@ export default {
 #nav a.router-link-exact-active {
   color: #42b983;
 }
-
 span {
   text-decoration: underline;
   cursor: pointer;
+}
+
+.btn {
+  border-radius: 10px;
+  padding: 8px;
+  /*width: 100%;*/
+  background: #000;
+  color: white;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background: #414141;
 }
 </style>

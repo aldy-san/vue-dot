@@ -85,17 +85,6 @@ export default {
   border-radius: 10px;
   padding: 8px;
 }
-.btn {
-  border-radius: 10px;
-  padding: 8px;
-  width: 100%;
-  background: #000;
-  color: white;
-  cursor: pointer;
-}
-.btn:hover {
-  background: #414141;
-}
 small {
   color: red;
 }

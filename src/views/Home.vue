@@ -1,10 +1,10 @@
 <template>
   <div class="home">
     <h1>Pokemon List</h1>
-    <div v-if="advData.length" class="poke-container">
+    <div v-if="advData.length" class="grid-container">
       <PokeCard v-for="(pokemon, i) in advData" :key="i" :pokemon="pokemon" />
     </div>
-    <div v-else-if="isLoading">
+    <div v-if="isLoading">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="1em"
@@ -27,11 +27,17 @@
         </circle>
       </svg>
     </div>
+    <button
+      v-if="data.next && !isLoading"
+      class="btn"
+      @click="getData(data.next)"
+    >
+      Show More
+    </button>
   </div>
 </template>
 
 <script setup>
-// @ is an alias to /src
 import { ref, onMounted } from "vue";
 import PokeCard from "@/components/PokeCard.vue";
 import { useRouter } from "vue-router";
@@ -40,23 +46,29 @@ const advData = ref([]);
 const error = ref(null);
 const router = useRouter();
 const isLoading = ref(true);
-fetch("https://pokeapi.co/api/v2/pokemon")
-  .then(async (res) => {
-    data.value = await res.json();
-    let promises = data.value.results.map((result) => {
-      return fetch(result.url);
-    });
-    Promise.all(promises).then(async (response) => {
-      response.forEach(async (item) => {
-        const json = await item.json();
-        advData.value.push(json);
+
+const getData = (url = "https://pokeapi.co/api/v2/pokemon") => {
+  isLoading.value = true;
+  fetch(url)
+    .then(async (res) => {
+      data.value = await res.json();
+      let promises = data.value.results.map((result) => {
+        return fetch(result.url);
       });
+      await Promise.all(promises).then(async (response) => {
+        response.forEach(async (item) => {
+          const json = await item.json();
+          advData.value.push(json);
+        });
+      });
+    })
+    .catch((err) => (error.value = err))
+    .finally(() => {
+      isLoading.value = false;
     });
-  })
-  .catch((err) => (error.value = err))
-  .finally(() => {
-    isLoading.value = false;
-  });
+};
+
+getData();
 
 onMounted(() => {
   if (!localStorage.getItem("user")) {
@@ -69,8 +81,12 @@ onMounted(() => {
 .home {
   max-width: 58rem;
   margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
 }
-.poke-container {
+.grid-container {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 20px;
