@@ -1,28 +1,30 @@
 <template>
-  <div class="container">
+  <div>
     <h1>Login</h1>
-    <div class="form-group">
-      <label for="username">Username</label>
-      <input
-        v-model="form.username"
-        id="username"
-        placeholder="username"
-        type="text"
-        class="form-input"
-      />
-    </div>
-    <div class="form-group">
-      <label for="password">Password</label>
-      <input
-        v-model="form.password"
-        id="password"
-        placeholder="password"
-        type="password"
-        class="form-input"
-      />
-    </div>
-    <button class="btn" @click="login">Login</button>
-    <small>{{ errorMessage }}</small>
+    <form @submit.prevent="login" class="container">
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input
+          v-model="form.username"
+          id="username"
+          placeholder="username"
+          type="text"
+          class="form-input"
+        />
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input
+          v-model="form.password"
+          id="password"
+          placeholder="password"
+          type="password"
+          class="form-input"
+        />
+      </div>
+      <button class="btn" type="submit">Login</button>
+      <small>{{ errorMessage }}</small>
+    </form>
   </div>
 </template>
 

@@ -32,11 +32,13 @@
 
 <script setup>
 // @ is an alias to /src
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import PokeCard from "@/components/PokeCard.vue";
+import { useRouter } from "vue-router";
 const data = ref([]);
 const advData = ref([]);
 const error = ref(null);
+const router = useRouter();
 const isLoading = ref(true);
 fetch("https://pokeapi.co/api/v2/pokemon")
   .then(async (res) => {
@@ -55,6 +57,12 @@ fetch("https://pokeapi.co/api/v2/pokemon")
   .finally(() => {
     isLoading.value = false;
   });
+
+onMounted(() => {
+  if (!localStorage.getItem("user")) {
+    router.push("/login");
+  }
+});
 </script>
 
 <style scoped>

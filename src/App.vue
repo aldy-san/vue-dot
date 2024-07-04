@@ -1,8 +1,10 @@
 <template>
   <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link v-if="!isLoggedIn" to="/login">Login</router-link>
-    <span v-else @click="logout">Logout</span>
+    <router-link v-if="!isLoggedIn" to="/login">LOGIN</router-link>
+    <template v-else>
+      <router-link to="/">HOME</router-link> |
+      <span @click="logout">LOGOUT</span>
+    </template>
   </div>
   <router-view />
 </template>
